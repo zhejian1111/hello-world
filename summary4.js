@@ -42,7 +42,7 @@ function insertAIDiv(selector) {
   // aiTitleDiv.appendChild(aiTagDiv);
 
   const aiExplanationDiv = document.createElement('div');
-  aiExplanationDiv.className = 'summay-content';
+  aiExplanationDiv.className = 'summary-content';
   aiExplanationDiv.innerHTML = '生成中...' + '<span class="blinking-cursor"></span>';
   aiDiv.appendChild(aiExplanationDiv); // 将 XiaoyuGPT-explanation 插入到 aiDiv，而不是 aiTitleDiv
 
