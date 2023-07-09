@@ -106,7 +106,7 @@ var XiaoyuGPT = {
       return "请购买 key 使用，如果你能看到此条内容，则说明代码安装正确。";
     }
 
-    const apiUrl = `http://20.66.11.207:8000/?content=${encodeURIComponent(content)}&key_secret=${encodeURIComponent(key_secret)}`;
+    const apiUrl = `http://20.66.11.207:8000/api/summary?content=${encodeURIComponent(content)}&key_secret=${encodeURIComponent(key_secret)}`;
     const timeout = 20000; // 设置超时时间（毫秒）
   
     try {
