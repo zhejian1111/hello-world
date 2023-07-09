@@ -65,7 +65,7 @@ var XiaoyuGPT = {
   getTitleAndContent: function() {
     try {
       const title = document.title;
-      const container = document.querySelector(XiaoyuGPT_postSelector);
+      const container = document.querySelector(Xiaoyu_postSelector);
       if (!container) {
         console.warn('XiaoyuGPT：找不到文章容器。请尝试将引入的代码放入到文章容器之后。如果本身没有打算使用摘要功能可以忽略此提示。');
         return '';
