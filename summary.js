@@ -256,7 +256,7 @@ var XiaoyuGPT = {
 }
 
 function runXiaoyuGPT() {
-  insertAIDiv(XiaoyuGPT_postSelector);
+  insertAIDiv(Xiaoyu_postSelector);
   const content = XiaoyuGPT.getTitleAndContent();
   if (content) {
     console.log('XiaoyuGPT本次提交的内容为：' + content);
