@@ -1,4 +1,4 @@
-console.log("\n %c 博客文章摘要AI生成工具 %c https://blog.yus.bio \n", "color: #fadfa3; background: #030307; padding:5px 0;", "background: #fadfa3; padding:5px 0;")
+//console.log("\n %c 博客文章摘要AI生成工具 %c https://blog.yus.bio \n", "color: #fadfa3; background: #030307; padding:5px 0;", "background: #fadfa3; padding:5px 0;")
 let isRunning = false;
 
 function insertAIDiv(selector) {
@@ -32,7 +32,7 @@ function insertAIDiv(selector) {
 
   const aiTitleTextDiv = document.createElement('div');
   aiTitleTextDiv.className = 'Xiaoyu-title-text';
-  aiTitleTextDiv.textContent = 'AI摘要';
+  aiTitleTextDiv.textContent = '摘要';
   aiTitleDiv.appendChild(aiTitleTextDiv);
 
   // const aiTagDiv = document.createElement('div');
@@ -43,7 +43,7 @@ function insertAIDiv(selector) {
 
   const aiExplanationDiv = document.createElement('div');
   aiExplanationDiv.className = 'summary-content';
-  aiExplanationDiv.innerHTML = '生成中...' + '<span class="blinking-cursor"></span>';
+  aiExplanationDiv.innerHTML = '让我想想...' + '<span class="blinking-cursor"></span>';
   aiDiv.appendChild(aiExplanationDiv); // 将 XiaoyuGPT-explanation 插入到 aiDiv，而不是 aiTitleDiv
 
   // 将创建的元素插入到目标元素的顶部
@@ -67,7 +67,7 @@ var XiaoyuGPT = {
       const title = document.title;
       const container = document.querySelector(Xiaoyu_postSelector);
       if (!container) {
-        console.warn('XiaoyuGPT：找不到文章容器。请尝试将引入的代码放入到文章容器之后。如果本身没有打算使用摘要功能可以忽略此提示。');
+        console.warn('没有获取到文章内容');
         return '';
       }
       const paragraphs = container.getElementsByTagName('p');
@@ -92,18 +92,18 @@ var XiaoyuGPT = {
       const truncatedText = combinedText.slice(0, wordLimit);
       return truncatedText;
     } catch (e) {
-      console.error('XiaoyuGPT错误：可能由于一个或多个错误导致没有正常运行，原因出在获取文章容器中的内容失败，或者可能是在文章转换过程中失败。', e);
+      console.error('内容读取失败', e);
       return '';
     }
   },
   
   fetchXiaoyuGPT: async function(content) {
     if (!key_secret) {
-      return "没有获取到key，代码可能没有安装正确。如果你需要在tianli_gpt文件引用前定义XiaoyuGPT_key变量。详细请查看文档。";
+      return "没有检测到密钥";
     }
 
     if (key_secret === "5Q5mpqRK5DkwT1X9Gi5e") {
-      return "请购买 key 使用，如果你能看到此条内容，则说明代码安装正确。";
+      return "请购买密钥后使用";
     }
 
     const apiUrl = `http://20.66.11.207:3000/api/summary?content=${encodeURIComponent(content)}&key_secret=${encodeURIComponent(key_secret)}`;
@@ -122,20 +122,20 @@ var XiaoyuGPT = {
                     el.style.display = 'none';
                 });
             }
-            throw new Error('XiaoyuGPT：余额不足，请充值后请求新的文章');
+            throw new Error('密钥没有绑定或者可用字数不足');
         }
     } catch (error) {
         if (error.name === 'AbortError') {
             if (window.location.hostname === 'localhost') {
-                console.warn('警告：请勿在本地主机上测试 API 密钥。');
-                return '获取文章摘要超时。请勿在本地主机上测试 API 密钥。';
+                console.warn('无法在localhost获取摘要');
+                return '无法在localhost获取摘要';
             } else {
                 console.error('请求超时');
-                return '获取文章摘要超时。当你出现这个问题时，可能是key或者绑定的域名不正确。也可能是因为文章过长导致的 AI 运算量过大，您可以稍等一下然后刷新页面重试。';
+                return '获取摘要超时。第一次获取可能由于网络问题或者内容过长导致，请刷新页面重试。';
             }
         } else {
             console.error('请求失败：', error);
-            return '获取文章摘要失败，请稍后再试。';
+            return '获取摘要失败，请刷新页面重试。';
         }
     }
   },
@@ -155,7 +155,7 @@ var XiaoyuGPT = {
     const punctuationDelayMultiplier = 6;
 
     element.style.display = "block";
-    element.innerHTML = "生成中..." + '<span class="blinking-cursor"></span>';
+    element.innerHTML = "让我想想..." + '<span class="blinking-cursor"></span>';
 
     let animationRunning = false;
     let currentIndex = 0;
@@ -259,7 +259,7 @@ function runXiaoyuGPT() {
   insertAIDiv(Xiaoyu_postSelector);
   const content = XiaoyuGPT.getTitleAndContent();
   if (content) {
-    console.log('XiaoyuGPT本次提交的内容为：' + content);
+    //console.log('XiaoyuGPT本次提交的内容为：' + content);
   }
   XiaoyuGPT.fetchXiaoyuGPT(content).then(summary => {
     XiaoyuGPT.aiShowAnimation(summary);
@@ -287,10 +287,10 @@ function checkURLAndRun() {
     if (urlPattern.test(currentURL)) {
       runXiaoyuGPT(); // 如果当前 URL 符合用户设置的 URL，则执行 runXiaoyuGPT() 函数
     } else {
-      console.log("XiaoyuGPT：因为不符合自定义的链接规则，我决定不执行摘要功能。");
+      console.log("绑定错误");
     }
   } catch (error) {
-    console.error("XiaoyuGPT：我没有看懂你编写的自定义链接规则，所以我决定不执行摘要功能", error);
+    console.error("绑定错误", error);
   }
 }
 
