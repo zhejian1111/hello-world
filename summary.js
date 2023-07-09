@@ -98,15 +98,15 @@ var XiaoyuGPT = {
   },
   
   fetchXiaoyuGPT: async function(content) {
-    if (!Xiaoyu_key) {
+    if (!key_secret) {
       return "没有获取到key，代码可能没有安装正确。如果你需要在tianli_gpt文件引用前定义XiaoyuGPT_key变量。详细请查看文档。";
     }
 
-    if (Xiaoyu_key === "5Q5mpqRK5DkwT1X9Gi5e") {
+    if (key_secret === "5Q5mpqRK5DkwT1X9Gi5e") {
       return "请购买 key 使用，如果你能看到此条内容，则说明代码安装正确。";
     }
 
-    const apiUrl = `http://20.66.11.207:8000/?content=${encodeURIComponent(content)}&key_secret=${encodeURIComponent(Xiaoyu_key)}`;
+    const apiUrl = `http://20.66.11.207:8000/?content=${encodeURIComponent(content)}&key_secret=${encodeURIComponent(key_secret)}`;
     const timeout = 20000; // 设置超时时间（毫秒）
   
     try {
