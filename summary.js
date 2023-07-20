@@ -106,7 +106,7 @@ var XiaoyuGPT = {
       return "请购买密钥后使用";
     }
 
-    const apiUrl = `http://20.66.11.207:3000/api/summary?content=${encodeURIComponent(content)}&key_secret=${encodeURIComponent(key_secret)}`;
+    const apiUrl = `https://api.yus.bio/api/getSummary?content=${encodeURIComponent(content)}&key_secret=${encodeURIComponent(key_secret)}`;
     const timeout = 20000; // 设置超时时间（毫秒）
   
     try {
@@ -141,7 +141,7 @@ var XiaoyuGPT = {
   },
 
   aiShowAnimation: function (text) {
-    const element = document.querySelector(".summay-content");
+    const element = document.querySelector(".summary-content");
     if (!element) {
       return;
     }
@@ -287,7 +287,7 @@ function checkURLAndRun() {
     if (urlPattern.test(currentURL)) {
       runXiaoyuGPT(); // 如果当前 URL 符合用户设置的 URL，则执行 runXiaoyuGPT() 函数
     } else {
-      console.log("绑定错误");
+      console.log("错误");
     }
   } catch (error) {
     console.error("绑定错误", error);
